@@ -1,3 +1,6 @@
 [submodule "Animator2D-v1"]
 	path = Animator2D-v1
 	url = https://github.com/Lod34/Animator2D-v1.git
+[submodule "Animator2D-mini"]
+	path = Animator2D-mini
+	url = https://github.com/Lod34/Animator2D-mini.git
