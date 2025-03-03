@@ -1,19 +1,8 @@
----
-license: mit
-datasets:
-- pawkanarek/spraix_1024
-language:
-- en
-base_model:
-- google-t5/t5-base
-metrics:
-- mse
-library_name: transformers
-pipeline_tag: text-to-image
----
 # 🎨 Animator2D
 
 Animator2D is an AI-powered model designed to generate pixel-art sprite animations from textual descriptions. This model leverages a BERT-based text encoder to extract textual features and a convolutional generative network to create animated sprites. The goal is to provide game developers and artists with a tool that can bring character concepts to life with minimal effort.
+
+Link to Hugging Face account: https://huggingface.co/Lod34
 
 ## 🛠️ Model Overview
 
