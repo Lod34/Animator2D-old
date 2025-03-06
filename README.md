@@ -1,44 +1,60 @@
 # 🎨 Animator2D
 
-Animator2D is an AI-powered model designed to generate pixel-art sprite animations from textual descriptions. This model leverages a BERT-based text encoder to extract textual features and a convolutional generative network to create animated sprites. The goal is to provide game developers and artists with a tool that can bring character concepts to life with minimal effort.
+*Animator2D* is an AI-driven project I’ve embarked on to generate pixel-art sprite animations from textual descriptions. My goal is to create a tool that transforms prompts like “a knight in red armor attacking with a sword, facing right” into animated sequences—be it GIFs, sprite sheets, or videos—ready for indie game developers. For a detailed history of its evolution, check out [CHANGELOG.md](CHANGELOG.md).
 
-Link to Hugging Face account: https://huggingface.co/Lod34
+Link to my Hugging Face account: [https://huggingface.co/Lod34](https://huggingface.co/Lod34)
 
-## 🛠️ Model Overview
+## 🌟 Project Journey
 
-- **Name:** Animator2D
-- **Input:**
-  - Character description
-  - Number of animation frames
-  - Character action
-  - Viewing direction
-- **Output:** Animated sprite sheet in image format
+This project began as a passion for blending artificial intelligence with my love for indie games. I envisioned a system where developers could input a character description, action, direction, and frame count to produce pixel-art sprites with an ideal height of 35 pixels (within a 25-50 pixel range). What started as a straightforward idea has turned into a challenging journey of experimentation, setbacks, and learning. Here’s a detailed account of where I’ve been and where I’m headed.
 
-## 📦 Dataset
+### The First Step: Animator2D-v1.0.0-alpha (Development: Feb 21, 2025 - Release: Feb 22, 2025)
+I kicked off *Animator2D-v1.0.0-alpha* on February 21, 2025, fueled by excitement. I chose BERT as the text encoder to process prompts and paired it with a simple convolutional generator for 64x64 pixel sprites. By February 22, I had a basic Gradio interface up, spitting out simulated outputs—yellow circles on blue backgrounds—just to test the pipeline. But the real results were a mess: chaotic pixels instead of animated sprites. BERT wasn’t cutting it for visual coherence, and the generator was too basic. It didn’t work, but it taught me I needed a more specialized approach.
 
-The model was trained using the [spraix\_1024](https://huggingface.co/datasets/pawkanarek/spraix_1024) dataset, which contains animated sprites with detailed textual descriptions. This dataset serves as a foundation for training the model to generate high-quality, relevant sprites based on textual inputs.
+### Simplifying and Iterating: Animator2D-mini-v1.0.0-alpha (Development: Feb 26, 2025 - Release: Mar 1, 2025)
+After that initial stumble, I decided to simplify. On February 26, 2025, I started *Animator2D-mini-v1.0.0-alpha*, switching to CLIP for its text-image synergy and using a lighter generator. I adopted the `pawkanarek/spraix_1024` dataset from Hugging Face, intrigued by its sprite descriptions. Released on March 1, I tested three variants:
+- **10e**: 10 epochs, vague 64x64 pixel shapes.
+- **100e**: 100 epochs, slight improvements but still impractical.
+- **250e**: 250 epochs, some stability at up to 128x128 pixels, yet no coherence.
 
-## 🚀 Model Versions
+I tweaked batch sizes (8-16) and learning rates (1e-4 to 2e-4), watching loss curves drop without usable outputs. It didn’t work, but I learned to handle datasets and PyTorch workflows, building a stronger technical foundation.
 
-Over time, several iterations of Animator2D have been developed, each improving on the previous version with different training strategies and hyperparameters. Below is a chronological overview of the versions created so far:
+### An Ambitious Rewrite: Animator2D-v2.0.0-alpha (Development: Mar 2, 2025 - Release: Mar 3, 2025)
+By March 2, 2025, I rewrote everything for *Animator2D-v2.0.0-alpha*. I swapped CLIP for T5, hoping for better text understanding, and added a *Frame Interpolator* for multi-frame animations. The generator grew more complex, and I upgraded the Gradio interface. Released on March 3, I deployed it to Hugging Face Spaces, only to find a “yellow ball on blue background” output. After days of debugging, I realized I’d uploaded the wrong `.pth` file. Even fixed, it didn’t work—animations were incoherent. This taught me deployment diligence, but also hinted my single-model approach might be flawed.
 
-| Model Version        | Description |
-|----------------------|-------------|
-| **Animator2D-v1** | The first full version developed in this project, utilizing a structured training approach with BERT for text encoding and a convolutional generator for sprite creation. |
-| **Animator2D-mini-10e** | A simplified version trained with only 10 epochs, batch size of 8, learning rate of 1e-4, and image size of 64x64. |
-| **Animator2D-mini-100e** | An extension of the mini-10e version, trained for 100 epochs for improved performance. |
-| **Animator2D-mini-250e** | A more refined version with 250 epochs, batch size increased to 16, learning rate of 2e-4, and image resolution of 128x128. |
-| **Animator2D-v2 (In Development)** | A new version being built from scratch with an entirely redesigned training process, aiming for better animation quality and efficiency. |
+### A Fix with Hope: Animator2D-v3.0.0-alpha (Development & Release: Mar 6, 2025)
+On March 6, 2025, I tackled *Animator2D-v3.0.0-alpha* as a fix for v2.0.0-alpha. I kept T5 and the *Frame Interpolator*, but added *Residual Blocks* and *Self-Attention* to the generator for better detail. Training got a boost with AdamW and Cosine Annealing on an 80/20 split of `pawkanarek/spraix_1024`. The Gradio interface now featured FPS control and GIF output, and I fixed the Hugging Face import (`Lod34/Animator2D`). Pixels started looking sprite-like, but it still didn’t work—animations lacked coherence. Progress, yes; success, no.
 
-## 🔮 Future Goals
+### Reflections on Setbacks
+Post-v3, I paused. I’d gained skills in PyTorch, dataset management, and deployment, but practical results eluded me. Was the dataset too limited? Was a single model too ambitious? This frustration led to a pivot.
 
-This is just the first iteration of Animator2D. Future updates will focus on refining and expanding its capabilities:
+### A New Direction: Animator2D-v1.0.0 (Development Started: Mar 6, 2025)
+Since March 6, 2025, I’ve been working on *Animator2D-v1.0.0*, a fresh start inspired by Da Vinci Resolve’s modular workflow. It’s in ideation, not yet functional, but here’s the plan:
+1. **Creation**: Users create or import a base sprite. I’m exploring pre-trained models (e.g., Stable Diffusion for pixel-art) or breaking sprites into parts (head, arms) for animation ease. Balancing usability and complexity is key.
+2. **Animation**: Set parameters—action, direction, frames—using `pawkanarek/spraix_1024` or richer datasets. This splits animation logic from creation.
+3. **Generation**: Output in GIF, sprite sheet, or video format, with potential previews.
 
-- **Multiple Output Formats**: Currently, the model generates a single sprite sheet. Future updates will enable exporting animations in various formats, including folders with individual frames, GIFs, and videos.
-- **Frame Input Optimization**: The number of frames is currently manually defined. Improvements will include a more intuitive system that considers FPS and actual animation duration.
-- **Model Refinement**: The current model is in an early stage. Future improvements will enhance sprite generation consistency and quality by optimizing the architecture and training dataset.
-- **Sprite Size Customization**: A new input will allow users to specify the character height in pixels, dynamically adjusting the sprite’s artistic style. This will ensure greater flexibility, allowing for different art styles (e.g., Pokémon vs. Metal Slug aesthetics).
+This modular approach feels promising, tackling one challenge at a time.
 
----
+## 🛠️ Technical Details
+- **Dataset**: `pawkanarek/spraix_1024`, preprocessed with resizing and normalization. It’s a start, but may need expansion.
+- **Architectures**: BERT (v1.0.0-alpha), CLIP (mini-v1.0.0-alpha), T5 (v2.0.0-alpha, v3.0.0-alpha), with generators evolving to include *Residual Blocks* and *Self-Attention*.
+- **Training**: Batch sizes 8-16, learning rates 1e-4/2e-4, up to 250 epochs. MSE Loss so far, but I’m eyeing alternatives.
+- **Interface**: Gradio, from basic in v1.0.0-alpha to advanced with FPS in v3.0.0-alpha, hosted on Hugging Face Spaces.
+- **Tech Stack**: PyTorch, Transformers, Gradio, Diffusers, PIL, NumPy. GPU (CUDA) when available, CPU otherwise.
 
-Animator2D is an exciting step toward AI-assisted sprite animation generation, and future versions will continue to push the boundaries of what’s possible in pixel-art automation! 🚀🎮
+## ⚡ Challenges Faced
+- **Inconsistent Outputs**: Sprites don’t match prompts; animations are chaotic.
+- **Dataset Limits**: `pawkanarek/spraix_1024` lacks variety for complex animations.
+- **Deployment Hiccups**: The v2.0.0-alpha “yellow ball” fiasco taught me file verification.
+- **Complexity**: A single-model approach overwhelmed me, leading to the modular shift.
+
+## 🚀 Next Steps
+- Build a prototype for *Animator2D-v1.0.0*’s three-phase structure.
+- Test pre-trained models for *Creation*.
+- Seek or create richer datasets for animation.
+- Explore diffusion pipelines for robust generation.
+- Enhance frame-to-frame coherence.
+
+## 💭 Personal Reflections
+*Animator2D* has been a rollercoaster. The “yellow ball” moment stung, and inconsistent outputs tested my resolve, but each step taught me something—neural networks, debugging, perseverance. It doesn’t work yet, but it’s a personal triumph of growth. The code’s on GitHub, and *v3.0.0-alpha* is testable on Hugging Face—not perfect, but a milestone. I’m committed to cracking this, one frame at a time.
