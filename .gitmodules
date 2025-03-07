@@ -10,3 +10,6 @@
 [submodule "Animator2D-v3.0.0-alpha"]
 	path = Animator2D-v3.0.0-alpha
 	url = https://github.com/Lod34/Animator2D-v3.0.0-alpha.git
+[submodule "Animator2D-v1.0.0"]
+	path = Animator2D-v1.0.0
+	url = https://github.com/Lod34/Animator2D-v1.0.0.git
