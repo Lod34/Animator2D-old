@@ -1,3 +1,4 @@
+_Last update: 6 March 2025_
 # 🎨 Animator2D
 
 *Animator2D* is an AI-driven project I’ve embarked on to generate pixel-art sprite animations from textual descriptions. My goal is to create a tool that transforms prompts like “a knight in red armor attacking with a sword, facing right” into animated sequences—be it GIFs, sprite sheets, or videos—ready for indie game developers. For a detailed history of its evolution, check out [Change Log](CHANGELOG.md).
